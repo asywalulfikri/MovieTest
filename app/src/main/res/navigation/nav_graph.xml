@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FragmentSplashScreen">
+
+    <fragment
+        android:id="@+id/FragmentSplashScreen"
+        android:name="asywalul.movie.test.screen.splashscreen.FragmentSplashScreen"
+        android:label="@string/fragment_splashscreen_label"
+        tools:layout="@layout/fragment_splash_screeen">
+
+        <action
+            android:id="@+id/action_splash_to_intro"
+            app:destination="@id/FragmentIntroduction" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/FragmentIntroduction"
+        android:name="asywalul.movie.test.screen.splashscreen.FragmentIntroduction"
+        android:label="@string/fragment_intro_label"
+        tools:layout="@layout/fragment_intro">
+
+     <!--  <action
+            android:id="@+id/action_intro1_to_intro2"
+            app:destination="@id/FragmentIntroduction2" />-->
+    </fragment>
+
+
+</navigation>

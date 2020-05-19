@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Movie Plot</string>
+    <string name="title_splash_screen">Movie\nPlot</string>
+    <string name="version">Version </string>
+    <string name="title_activity_splash_screen">Movie Plot</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="fragment_splashscreen_label">Splash Screen Fragment</string>
+    <string name="fragment_intro_label">Splash Screen Fragment</string>
+    <string name="name">Name</string>
+    <string name="next">Continue</string>
+    <string name="previous">Previous</string>
+    <string name="introduction">Hi! Im your navigator. Please pick a nickname.</string>
+    <string name="introduction_name">Nice to meet you Jarvis!Now you can continue.</string>
+    <string name="validator">Your nickname must: \n- 6 characters\n- 1 capital letter</string>
+    <string name="error_name">Your nickname must 6 characters</string>
+    <string name="error_uppercase">Your nickname must have 1capital letter</string>
+    <string name="popular_movie">Popular Movie</string>
+    <string name="upcoming_movie">Upcoming Movie</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>

@@ -1,0 +1,65 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="textStyle">
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:textColor">#FF47525E</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+    </style>
+
+    <style name="textStyle_">
+        <item name="android:fontFamily">Lato</item>
+        <item name="android:textColor">#FFF95F62</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+    </style>
+
+    <style name="textStyleTitle">
+        <item name="android:fontFamily">Lato</item>
+        <item name="android:textColor">#FF47525E</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingMultiplier">1.28</item>
+    </style>
+
+    <style name="textStyleToolbar">
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+    </style>
+
+    <style name="BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/TextAppearance.BottomNavigationView.Active</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.BottomNavigationView.Inactive</item>
+    </style>
+
+    <!-- inactive tab icon style -->
+    <style name="TextAppearance.BottomNavigationView.Inactive">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- active tab icon style -->
+    <style name="TextAppearance.BottomNavigationView.Active">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextAppearance.BottomNavigationView"/>
+    <style name="TextAppearance"/>
+
+</resources>

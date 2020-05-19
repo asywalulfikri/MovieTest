@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/linearToolbar"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#004071"
+    android:layout_height="80dp">
+
+
+    <TextView
+        android:gravity="left"
+        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="Good Evening,\nFikri"
+        style="@style/textStyleToolbar"
+        android:layout_marginStart="20dp" />
+
+
+</LinearLayout>
