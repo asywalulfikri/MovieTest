@@ -1,4 +1,4 @@
-package asywalul.movie.test.model
+package asywalul.movie.test.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
