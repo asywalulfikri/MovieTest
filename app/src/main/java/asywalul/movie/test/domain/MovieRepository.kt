@@ -9,6 +9,6 @@ interface MovieRepository {
 
     fun getMoviePopular(): Observable<List<Popular>>
     fun getMovieUpComing(): Observable<List<UpComing>>
-    fun getMovieReviews():Observable<List<Reviews>>
+    fun getMovieReviews(idMovie : String):Observable<List<Reviews>>
 
 }

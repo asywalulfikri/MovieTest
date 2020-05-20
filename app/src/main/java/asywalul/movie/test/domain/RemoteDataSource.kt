@@ -9,7 +9,7 @@ interface RemoteDataSource {
 
     fun getMoviePopularFromApi(): Observable<List<Popular>>
     fun getMovieUpComingFromApi(): Observable<List<UpComing>>
-    fun getMovieReviewsFromApi():Observable<List<Reviews>>
+    fun getMovieReviewsFromApi(idMovie:String):Observable<List<Reviews>>
 
 
 }

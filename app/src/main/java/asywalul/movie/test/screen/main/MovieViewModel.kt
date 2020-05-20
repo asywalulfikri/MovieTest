@@ -7,6 +7,7 @@ import asywalul.movie.test.common.ViewState
 import asywalul.movie.test.domain.SchedulerProviders
 import asywalul.movie.test.domain.idlingresource.EspressoIdlingResource
 import asywalul.movie.test.data.local.entity.Popular
+import asywalul.movie.test.data.local.entity.Reviews
 import asywalul.movie.test.data.local.entity.UpComing
 import asywalul.movie.test.model.repository.MovieRepositoryImpl
 import java.util.concurrent.TimeUnit
@@ -15,6 +16,7 @@ class MovieViewModel(private val movieRepositoryImpl: MovieRepositoryImpl, priva
 
     val moviePopularListState = MutableLiveData<ViewState<List<Popular>>>()
     val movieUpComingListState = MutableLiveData<ViewState<List<UpComing>>>()
+    val movieReviewListState = MutableLiveData<ViewState<List<Reviews>>>()
 
 
     @SuppressLint("CheckResult")
@@ -53,6 +55,27 @@ class MovieViewModel(private val movieRepositoryImpl: MovieRepositoryImpl, priva
                 EspressoIdlingResource.decrement()
             }, {
                 movieUpComingListState.postValue(ViewState.error(it))
+                EspressoIdlingResource.decrement()
+            }
+            ).also { compositeDisposable.add(it) }
+    }
+
+    @SuppressLint("CheckResult")
+    fun getMoviesReviews(idMovie:String) {
+        EspressoIdlingResource.increment()
+        movieRepositoryImpl.getMovieReviews(idMovie)
+            .subscribeOn(scheduler.io())
+            .observeOn(scheduler.ui())
+            .delay(2, TimeUnit.SECONDS)
+            .doOnNext {
+                movieReviewListState.postValue(ViewState.loading())
+
+            }
+            .subscribe({
+                movieReviewListState.postValue(ViewState.success(it))
+                EspressoIdlingResource.decrement()
+            }, {
+                movieReviewListState.postValue(ViewState.error(it))
                 EspressoIdlingResource.decrement()
             }
             ).also { compositeDisposable.add(it) }

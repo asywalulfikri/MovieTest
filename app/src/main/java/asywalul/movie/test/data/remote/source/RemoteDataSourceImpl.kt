@@ -6,6 +6,7 @@ import asywalul.movie.test.domain.RemoteDataSource
 import asywalul.movie.test.domain.SchedulerProviders
 import asywalul.movie.test.model.api.MovieApi
 import asywalul.movie.test.data.local.entity.Popular
+import asywalul.movie.test.data.local.entity.Reviews
 import asywalul.movie.test.data.local.entity.UpComing
 import asywalul.movie.test.utils.Constant
 import io.reactivex.Observable
@@ -30,6 +31,16 @@ class RemoteDataSourceImpl(private val api: MovieApi,
                 movieResponse.results
             }
             .subscribeOn(scheduler.io())
+
+    override fun getMovieReviewsFromApi(idMovie:String): Observable<List<Reviews>> =
+        api.getMovieReviews(Constant.KEY.key,idMovie)
+            .map { movieResponse ->
+                localImpl.saveMovieReviews(movieResponse.results).subscribe()
+                movieResponse.results
+
+            }
+            .subscribeOn(scheduler.io())
+
 
 
 }

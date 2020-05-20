@@ -1,4 +1,5 @@
 package asywalul.movie.test.screen.main
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,14 +12,16 @@ import asywalul.movie.test.R
 import asywalul.movie.test.common.ViewState
 import asywalul.movie.test.data.local.entity.Popular
 import asywalul.movie.test.data.local.entity.UpComing
-import asywalul.movie.test.screen.main.adapter.MovieSliderAdapter
+import asywalul.movie.test.screen.detail.MovieDetailActivity
 import asywalul.movie.test.screen.main.adapter.MovieAdapter
+import asywalul.movie.test.screen.main.adapter.MovieSliderAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class MovieListActivity : AppCompatActivity() {
+class MovieListActivity : AppCompatActivity(), MovieAdapter.OnClickListener {
 
     private val movieViewModel by viewModel<MovieViewModel>()
     private lateinit var movieAdapter : MovieAdapter
@@ -29,6 +32,7 @@ class MovieListActivity : AppCompatActivity() {
     private val sliderDelay: Long = 2500.toLong()
     private val sliderGap: Long = 2500.toLong()
     private var isRegisteredSliderImageChangeListener: Boolean = false
+    private var result: List<UpComing> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +93,8 @@ class MovieListActivity : AppCompatActivity() {
 
 
     private fun observeMovies(result: List<UpComing>?) {
-        movieAdapter.setItems(result!!)
+        this.result = result!!
+        movieAdapter.setItems(result!!,this)
     }
 
 
@@ -137,6 +142,13 @@ class MovieListActivity : AppCompatActivity() {
         override fun onPageScrollStateChanged(state: Int) {}
 
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+    }
+
+    override fun onNoteClick(position: Int) {
+        val upComing = result[position]
+        val intent = Intent(this,MovieDetailActivity::class.java)
+        intent.putExtra("movie", upComing)
+        startActivity(intent)
     }
 
 }

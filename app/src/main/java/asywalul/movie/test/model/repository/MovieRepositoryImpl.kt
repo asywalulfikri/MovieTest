@@ -18,7 +18,7 @@ class MovieRepositoryImpl(private val remoteImpl: RemoteDataSourceImpl, private 
     override fun getMovieUpComing(): Observable<List<UpComing>> =
         Observable.concatArrayEager(localImpl.getAllMovieUpComing(), remoteImpl.getMovieUpComingFromApi())
 
-    override fun getMovieReviews(): Observable<List<Reviews>> =
-        Observable.concatArrayEager(localImpl.getMovieReviews(), remoteImpl.getMovieReviewsFromApi())
+    override fun getMovieReviews(idMovie :String): Observable<List<Reviews>> =
+        Observable.concatArrayEager(localImpl.getMovieReviews(), remoteImpl.getMovieReviewsFromApi(idMovie))
 
 }

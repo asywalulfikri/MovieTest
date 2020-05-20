@@ -1,6 +1,6 @@
 package asywalul.movie.test.model.response
 
-import asywalul.movie.test.data.local.entity.UpComing
+import asywalul.movie.test.data.local.entity.Reviews
 import com.google.gson.annotations.SerializedName
 
 data class ReviewsResponse(
@@ -12,7 +12,7 @@ data class ReviewsResponse(
         val totalPages: Int? = null,
 
         @field:SerializedName("results")
-        val results: List<UpComing>,
+        val results: List<Reviews>,
 
         @field:SerializedName("total_results")
         val totalResults: Int? = null
