@@ -25,6 +25,7 @@ class ReviewsAdapter : RecyclerView.Adapter<ReviewsAdapter.ViewHolder>() {
         holder.tvAuthor.text = result.author
         holder.tvContent.text = result.content
 
+
     }
 
     fun setItems(resultList: List<Reviews>) {

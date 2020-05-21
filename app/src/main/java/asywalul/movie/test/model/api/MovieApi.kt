@@ -1,7 +1,8 @@
 package asywalul.movie.test.model.api
 
+import asywalul.movie.test.data.local.entity.Detail
 import asywalul.movie.test.model.response.PopularResponse
-import asywalul.movie.test.model.response.ReviewsResponse
+import asywalul.movie.test.data.local.entity.ReviewsResponse
 import asywalul.movie.test.model.response.UpcomingResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -18,6 +19,10 @@ interface MovieApi {
 
     @GET("movie/{movie_id}/reviews")
     fun getMovieReviews(@Path("movie_id") apiKey: String,
-                        @Query("api_key")idMovie:String): Observable<ReviewsResponse>
+                        @Query("api_key") idMovie:String): Observable<ReviewsResponse>
+
+    @GET("movie/{movie_id}")
+    fun getMovieDetail(@Path("movie_id") apiKey: String,
+                       @Query("api_key") idMovie:String): Observable<Detail>
 
 }

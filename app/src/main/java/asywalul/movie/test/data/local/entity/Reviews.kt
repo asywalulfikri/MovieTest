@@ -1,26 +1,25 @@
 package asywalul.movie.test.data.local.entity
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import asywalul.movie.test.utils.Constant
+import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 
 
-@Entity(tableName = Constant.TABLE.tbl_review)
 data class Reviews(
 
-    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "id")
     @field:SerializedName("id")
-    val id: Long? = null,
+    val id: String? =null,
 
+    @ColumnInfo(name = "author")
     @field:SerializedName("author")
     val author: String? = null,
 
+    @ColumnInfo(name = "content")
     @field:SerializedName("content")
     val content: String? = null,
 
+    @ColumnInfo(name = "url")
     @field:SerializedName("url")
     val url: String? = null
-
 
 )

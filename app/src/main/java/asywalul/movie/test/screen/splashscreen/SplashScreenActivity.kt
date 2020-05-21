@@ -1,10 +1,11 @@
 package asywalul.movie.test.screen.splashscreen
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import asywalul.movie.test.R
+import asywalul.movie.test.base.BaseActivity
+import kotlin.system.exitProcess
 
-class SplashScreenActivity : AppCompatActivity() {
+class SplashScreenActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -13,6 +14,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        finish()
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        exitProcess(1);
     }
 }

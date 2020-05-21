@@ -54,7 +54,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.android.material:material:1.1.0'
-
+    implementation 'org.conscrypt:conscrypt-android:2.2.1'
 
     //lib for networking
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
@@ -65,6 +65,7 @@ dependencies {
     implementation "org.koin:koin-android:2.1.5"
     implementation 'org.koin:koin-androidx-viewmodel:2.1.5'
     implementation 'org.koin:koin-androidx-scope:2.1.5'
+    implementation "org.koin:koin-androidx-fragment:2.1.5"
 
     //lib image
     implementation 'com.squareup.picasso:picasso:2.71828'

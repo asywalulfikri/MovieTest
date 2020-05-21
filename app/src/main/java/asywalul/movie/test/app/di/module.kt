@@ -8,10 +8,13 @@ import asywalul.movie.test.domain.SchedulerProviders
 import asywalul.movie.test.data.local.AppDatabase
 import asywalul.movie.test.model.api.MovieApi
 import asywalul.movie.test.model.repository.MovieRepositoryImpl
+import asywalul.movie.test.screen.detail.MovieInformationFragment
+import asywalul.movie.test.screen.detail.MovieReviewsFragment
 import asywalul.movie.test.utils.Constant
-import asywalul.movie.test.screen.main.MovieViewModel
+import asywalul.movie.test.viewmodel.MovieViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.androidx.fragment.dsl.fragment
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -26,7 +29,11 @@ val appModule = module {
     single { SchedulerProviders.DEFAULT }
 
     single { MovieRepositoryImpl(get(), get()) }
-    //single { TvShowRepositoryImpl(get(), get()) }
+
+    fragment { MovieInformationFragment() }
+    fragment { MovieReviewsFragment() }
+
+
 
     single { LocalDataSourceImpl(get(), get()) }
     single { RemoteDataSourceImpl(get(), get(), get()) }

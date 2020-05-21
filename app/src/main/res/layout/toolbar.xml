@@ -3,19 +3,31 @@
     android:layout_width="match_parent"
     android:id="@+id/linearToolbar"
     android:gravity="center"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="#004071"
     android:layout_height="80dp">
 
 
     <TextView
-        android:gravity="left"
+        android:layout_weight="1"
+        android:id="@+id/tvName"
+        android:gravity="left|center"
         android:layout_marginLeft="20dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="fill_parent"
-        android:text="Good Evening,\nFikri"
         style="@style/textStyleToolbar"
         android:layout_marginStart="20dp" />
+
+
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/tvLogOut"
+        android:gravity="right|center"
+        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:text="Log Out"
+        android:layout_marginRight="5dp"
+        style="@style/textStyleToolbar" />
 
 
 </LinearLayout>

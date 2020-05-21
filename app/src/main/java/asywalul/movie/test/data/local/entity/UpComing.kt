@@ -1,15 +1,13 @@
 package asywalul.movie.test.data.local.entity
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import asywalul.movie.test.utils.Constant
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 import retrofit2.Converter
+import java.io.Serializable
 
-@Parcelize
 @Entity(tableName = Constant.TABLE.tbl_upcoming)
 data class UpComing(
 
@@ -57,4 +55,4 @@ data class UpComing(
     @field:SerializedName("vote_count")
     val voteCount: Long? = null
 
-):Parcelable
+):Serializable

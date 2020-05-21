@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:textStyle="bold"
-        android:text="Jamal"
         android:maxLines="1"
         android:layout_margin="5dp"/>
 
@@ -30,8 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
-        android:text="Jim Carrey as a bad guy... great bad guy, full of zeal for being the worst bad character ever, and not being his usual self. Sonic - the main character is fun, even if his backround story sucks when compared to other characters. Still, it is fun, full of energy, and a good movie to share with kids."
-        android:maxLines="1"
+       android:maxLines="1"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginStart="20dp" />

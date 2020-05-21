@@ -15,6 +15,7 @@ class Constant {
             const val tbl_popular = "popular"
             const val tbl_upcoming = "upcoming"
             const val tbl_review = "reviews"
+            const val tbl_detail = "detail"
         }
     }
 

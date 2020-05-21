@@ -21,10 +21,9 @@ class Converters : KoinComponent {
     }
 
     @TypeConverter
-    fun fromResultListToJson(weather: List<Popular>): String {
-        return Gson().toJson(weather)
+    fun fromResultListToJson(popular: List<Popular>): String {
+        return Gson().toJson(popular)
     }
-
     @TypeConverter
     fun fromJsonToResultList(jsonWeatherList: String): List<Popular> {
         val weatherListType = object : TypeToken<List<Popular>>() {}.type

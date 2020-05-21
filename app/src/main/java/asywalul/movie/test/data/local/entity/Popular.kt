@@ -6,6 +6,7 @@ import androidx.room.TypeConverters
 import asywalul.movie.test.utils.Constant
 import com.google.gson.annotations.SerializedName
 import retrofit2.Converter
+import java.io.Serializable
 
 
 @Entity(tableName = Constant.TABLE.tbl_popular)
@@ -55,4 +56,4 @@ data class Popular(
     @field:SerializedName("vote_count")
     val voteCount: Long? = null
 
-)
+):Serializable

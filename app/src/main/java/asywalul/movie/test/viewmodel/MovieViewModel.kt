@@ -1,22 +1,21 @@
-package asywalul.movie.test.screen.main
+package asywalul.movie.test.viewmodel
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import asywalul.movie.test.base.BaseViewModel
 import asywalul.movie.test.common.ViewState
+import asywalul.movie.test.data.local.entity.*
 import asywalul.movie.test.domain.SchedulerProviders
 import asywalul.movie.test.domain.idlingresource.EspressoIdlingResource
-import asywalul.movie.test.data.local.entity.Popular
-import asywalul.movie.test.data.local.entity.Reviews
-import asywalul.movie.test.data.local.entity.UpComing
 import asywalul.movie.test.model.repository.MovieRepositoryImpl
 import java.util.concurrent.TimeUnit
 
 class MovieViewModel(private val movieRepositoryImpl: MovieRepositoryImpl, private var scheduler: SchedulerProviders) : BaseViewModel(){
 
-    val moviePopularListState = MutableLiveData<ViewState<List<Popular>>>()
+    val moviePopularListState  = MutableLiveData<ViewState<List<Popular>>>()
     val movieUpComingListState = MutableLiveData<ViewState<List<UpComing>>>()
-    val movieReviewListState = MutableLiveData<ViewState<List<Reviews>>>()
+    val movieDetailState       = MutableLiveData<ViewState<Detail>>()
+    val movieReviewState   = MutableLiveData<ViewState<ReviewsResponse>>()
 
 
     @SuppressLint("CheckResult")
@@ -39,6 +38,7 @@ class MovieViewModel(private val movieRepositoryImpl: MovieRepositoryImpl, priva
             ).also { compositeDisposable.add(it) }
     }
 
+
     @SuppressLint("CheckResult")
     fun getMoviesUpComing() {
         EspressoIdlingResource.increment()
@@ -60,24 +60,43 @@ class MovieViewModel(private val movieRepositoryImpl: MovieRepositoryImpl, priva
             ).also { compositeDisposable.add(it) }
     }
 
-    @SuppressLint("CheckResult")
-    fun getMoviesReviews(idMovie:String) {
+
+    fun getMoviesReviews(idMovie : String) {
         EspressoIdlingResource.increment()
         movieRepositoryImpl.getMovieReviews(idMovie)
             .subscribeOn(scheduler.io())
             .observeOn(scheduler.ui())
             .delay(2, TimeUnit.SECONDS)
             .doOnNext {
-                movieReviewListState.postValue(ViewState.loading())
-
+                movieReviewState.postValue(ViewState.loading())
             }
             .subscribe({
-                movieReviewListState.postValue(ViewState.success(it))
+                movieReviewState.postValue(ViewState.success(it))
                 EspressoIdlingResource.decrement()
             }, {
-                movieReviewListState.postValue(ViewState.error(it))
+                movieReviewState.postValue(ViewState.error(it))
                 EspressoIdlingResource.decrement()
             }
+            ).also { compositeDisposable.add(it) }
+    }
+
+    fun getMoviesDetail(id: String) {
+        EspressoIdlingResource.increment()
+        movieRepositoryImpl.getMovieDetail(id)
+            .subscribeOn(scheduler.io())
+            .observeOn(scheduler.ui())
+            .delay(2, TimeUnit.SECONDS)
+            .doOnNext {
+                movieDetailState.postValue(ViewState.loading())
+            }
+            .subscribe(
+                {
+                    movieDetailState.postValue(ViewState.success(it))
+                    EspressoIdlingResource.decrement()
+                }, {
+                    movieDetailState.postValue(ViewState.error(it))
+                    EspressoIdlingResource.decrement()
+                }
             ).also { compositeDisposable.add(it) }
     }
 

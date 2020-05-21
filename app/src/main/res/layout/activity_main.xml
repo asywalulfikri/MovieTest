@@ -37,15 +37,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"/>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs_dot_indicator"
-                android:layout_gravity="bottom"
+
+           <!-- <com.google.android.material.tabs.TabLayout
+                android:id="@+id/dotsLayoute"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabBackground="@drawable/image_selector"
                 app:tabGravity="center"
-                app:tabIndicatorHeight="5dp"
-                app:tabRippleColor="@android:color/transparent"/>
+                app:tabIndicatorHeight="0dp" />-->
+
+            <LinearLayout
+                android:id="@+id/dotsLayoute"
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:layout_height="20dp"
+                android:orientation="horizontal"
+                android:gravity="center"/>
 
 
             <TextView
@@ -67,4 +74,6 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <include layout="@layout/layout_loading"/>
 </RelativeLayout>

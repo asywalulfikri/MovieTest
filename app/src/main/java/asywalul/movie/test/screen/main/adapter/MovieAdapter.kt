@@ -61,7 +61,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
         private var mOnClickListener: OnClickListener = onClickListener
 
         override fun onClick(view: View) {
-            mOnClickListener.onNoteClick(adapterPosition)
+            mOnClickListener.onClick(adapterPosition)
         }
 
         init {
@@ -70,7 +70,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     }
 
     interface OnClickListener {
-        fun onNoteClick(position: Int)
+        fun onClick(position: Int)
     }
 
 }
