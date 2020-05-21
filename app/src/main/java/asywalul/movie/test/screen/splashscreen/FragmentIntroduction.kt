@@ -31,7 +31,7 @@ class FragmentIntroduction : BaseFragment() {
 
 
         btnNext.setOnClickListener {
-            if(validation(etName.text.toString())){
+            if(validation()){
                 saveData()
                 startActivity(Intent(activity, MovieListActivity::class.java))
             }
@@ -47,7 +47,7 @@ class FragmentIntroduction : BaseFragment() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-                if(validation(p0.toString())){
+                if(validation()){
                     ivCorrect.visibility = View.VISIBLE
                 }else{
                     ivCorrect.visibility = View.GONE
@@ -74,14 +74,9 @@ class FragmentIntroduction : BaseFragment() {
         editor.apply()
     }
 
-    private fun validation(text : String):Boolean{
-
-        return if(text.length<=6){
-            false
-        }else capitalize(text)
-
+    private fun validation():Boolean{
+        return etName.text.toString().trim().length >= 6
     }
-
 
     private fun capitalize(capString: String): Boolean {
         val capMatcher: Matcher = Pattern.compile(".*[A-Z].*", Pattern.CASE_INSENSITIVE).matcher(capString)
