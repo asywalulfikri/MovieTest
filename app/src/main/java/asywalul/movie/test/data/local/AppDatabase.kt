@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import asywalul.movie.test.data.local.dao.MovieDao
 import asywalul.movie.test.data.local.entity.*
 
-@Database(entities = [Popular::class,UpComing::class,ReviewsResponse::class,Detail::class], version = 3, exportSchema = false)
+@Database(entities = [Popular::class,UpComing::class,ReviewsResponse::class,Detail::class,Genres::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class,ConvertersReviews::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract val movieDao: MovieDao

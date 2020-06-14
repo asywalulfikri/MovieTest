@@ -16,6 +16,8 @@ class Constant {
             const val tbl_upcoming = "upcoming"
             const val tbl_review = "reviews"
             const val tbl_detail = "detail"
+            const val tbl_genre ="genre"
+            const val tbl_genres = "genres"
         }
     }
 

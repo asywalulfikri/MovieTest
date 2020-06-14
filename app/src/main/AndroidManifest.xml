@@ -30,6 +30,7 @@
 
         <activity android:name=".screen.detail.MovieDetailActivity"/>
         <activity android:name=".screen.main.MovieListActivity"/>
+        <activity android:name=".screen.list.MovieGenreActivity"/>
     </application>
 
 </manifest>

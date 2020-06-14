@@ -1,4 +1,4 @@
-package asywalul.movie.test.domain.idlingresource
+package asywalul.movie.test.intface.idlingresource
 
 import android.util.Log
 import androidx.test.espresso.idling.CountingIdlingResource

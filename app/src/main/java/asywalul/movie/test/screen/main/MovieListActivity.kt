@@ -16,9 +16,12 @@ import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import asywalul.movie.test.R
 import asywalul.movie.test.base.BaseActivity
 import asywalul.movie.test.common.ViewState
+import asywalul.movie.test.data.local.entity.Genres
 import asywalul.movie.test.data.local.entity.Popular
 import asywalul.movie.test.data.local.entity.UpComing
 import asywalul.movie.test.screen.detail.MovieDetailActivity
+import asywalul.movie.test.screen.list.MovieGenreActivity
+import asywalul.movie.test.screen.main.adapter.GenreAdapter
 import asywalul.movie.test.screen.main.adapter.MovieAdapter
 import asywalul.movie.test.screen.main.adapter.MovieSliderAdapter
 import asywalul.movie.test.screen.splashscreen.SplashScreenActivity
@@ -35,7 +38,9 @@ class MovieListActivity : BaseActivity(), MovieAdapter.OnClickListener {
 
     private val movieViewModel by viewModel<MovieViewModel>()
     private lateinit var movieAdapter : MovieAdapter
+    private lateinit var genreAdapter : GenreAdapter
     private var resultUpComing: List<UpComing> = ArrayList()
+    private var resultGenre: List<Genres> = ArrayList()
     private var resultUpPopular: List<Popular> = ArrayList()
     private lateinit var movieSliderAdapter: MovieSliderAdapter
     private var timer: Timer? = null
@@ -56,9 +61,18 @@ class MovieListActivity : BaseActivity(), MovieAdapter.OnClickListener {
             adapter = movieAdapter
         }
 
+        recyclerViewGenre.run {
+            layoutManager = GridLayoutManager(context,3)
+            isNestedScrollingEnabled = true
+            setHasFixedSize(true)
+            genreAdapter = GenreAdapter()
+            adapter = genreAdapter
+        }
+
         observeData()
         movieViewModel.getMoviesUpComing()
         movieViewModel.getMoviesPopular()
+        movieViewModel.getMoviesGenres()
 
         updateUser()
 
@@ -107,12 +121,33 @@ class MovieListActivity : BaseActivity(), MovieAdapter.OnClickListener {
             }
         })
 
+        movieViewModel.movieGenresState.observe(this, Observer {
+            when (it.currentState) {
+                ViewState.State.LOADING -> {
+                    progress_bar.visibility = View.VISIBLE
+                }
+                ViewState.State.SUCCESS -> {
+                    progress_bar.visibility = View.GONE
+                    observeGenre(it.data)
+                }
+                ViewState.State.FAILED -> {
+                    progress_bar.visibility = View.GONE
+                    it.err?.let { err -> observeError(err) }
+                }
+            }
+        })
+
     }
 
     private fun observeError(err: Throwable) {
         Log.d("error movie",err.message.toString())
     }
 
+
+    private fun observeGenre(result : List<Genres>?) {
+        this.resultGenre = result!!
+        genreAdapter.setItems(result)
+    }
 
     private fun observeMovies(result: List<UpComing>?) {
         this.resultUpComing = result!!
@@ -136,7 +171,7 @@ class MovieListActivity : BaseActivity(), MovieAdapter.OnClickListener {
     private fun createSliderShow() {
         val handler = Handler()
         val runnable = Runnable {
-            if (current_possition === Int.Companion.MAX_VALUE) current_possition = 0
+            if (current_possition == Int.Companion.MAX_VALUE) current_possition = 0
             viewPager.setCurrentItem(current_possition++, true)
         }
         timer = Timer()
@@ -186,7 +221,7 @@ class MovieListActivity : BaseActivity(), MovieAdapter.OnClickListener {
 
     override fun onClick(position: Int) {
         val upComing = resultUpComing[position]
-        val intent = Intent(this,MovieDetailActivity::class.java)
+        val intent = Intent(this,MovieGenreActivity::class.java)
         intent.putExtra("type",1)
         intent.putExtra("movie", upComing)
         startActivity(intent)

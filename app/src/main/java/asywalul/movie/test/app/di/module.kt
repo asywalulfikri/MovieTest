@@ -4,7 +4,7 @@ import androidx.room.Room
 import asywalul.movie.test.common.ViewState
 import asywalul.movie.test.data.local.source.LocalDataSourceImpl
 import asywalul.movie.test.data.remote.source.RemoteDataSourceImpl
-import asywalul.movie.test.domain.SchedulerProviders
+import asywalul.movie.test.intface.SchedulerProviders
 import asywalul.movie.test.data.local.AppDatabase
 import asywalul.movie.test.model.api.MovieApi
 import asywalul.movie.test.model.repository.MovieRepositoryImpl

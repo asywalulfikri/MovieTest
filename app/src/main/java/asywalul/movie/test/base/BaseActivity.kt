@@ -11,7 +11,6 @@ import java.util.*
 open class BaseActivity : AppCompatActivity() {
     lateinit var mSharedPref: SharedPreferences
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

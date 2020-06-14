@@ -11,4 +11,5 @@ class ConvertersReviews : KoinComponent {
 
     @TypeConverter
     fun jsonToList(value: String) = Gson().fromJson(value, Array<Reviews>::class.java).toList()
+
 }
