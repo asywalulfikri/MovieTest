@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import asywalul.movie.test.R
+import asywalul.movie.test.data.local.entity.Discover
 import asywalul.movie.test.data.local.entity.Popular
 import asywalul.movie.test.data.local.entity.UpComing
 import kotlinx.android.synthetic.main.activity_detail_movie.*
@@ -16,6 +17,7 @@ class MovieDetailActivity : AppCompatActivity(){
 
     private var upComing: UpComing? =null
     var popular :Popular? =null
+    var discover :Discover? =null
     var type : Int? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +28,16 @@ class MovieDetailActivity : AppCompatActivity(){
 
         Log.d("typenya",type.toString()+"---")
 
-        if(type==1){
-            upComing = intent.getSerializableExtra("movie") as UpComing?
-        }else{
-            popular = intent.getSerializableExtra("movie") as Popular?
+        when (type) {
+            1 -> {
+                upComing = intent.getSerializableExtra("movie") as UpComing?
+            }
+            2 -> {
+                popular = intent.getSerializableExtra("movie") as Popular?
+            }
+            else -> {
+                discover = intent.getSerializableExtra("movie") as Discover?
+            }
         }
 
         setupViewPager()
@@ -41,21 +49,32 @@ class MovieDetailActivity : AppCompatActivity(){
     private fun setupViewPager() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         val bundle = Bundle()
-        if(type==1){
-            bundle.putSerializable("movie", upComing)
-            bundle.putSerializable("type",type)
-        }else{
-            bundle.putSerializable("movie", popular)
-            bundle.putSerializable("type",type)
+        when (type) {
+            1 -> {
+                bundle.putSerializable("movie", upComing)
+                bundle.putSerializable("type",type)
+            }
+            2 -> {
+                bundle.putSerializable("movie", popular)
+                bundle.putSerializable("type",type)
+            }
+            else -> {
+                bundle.putSerializable("movie", discover)
+                bundle.putSerializable("type",type)
+            }
         }
 
         val information = MovieInformationFragment()
         val reviews = MovieReviewsFragment()
+        val video = MovieVideoFragment()
 
         information.arguments = bundle
         reviews.arguments = bundle
+        video.arguments = bundle
+
         adapter.addFrag(information, "Information")
         adapter.addFrag(reviews, "Reviews")
+        adapter.addFrag(video,"Trailer")
         viewPager.adapter = adapter
     }
 

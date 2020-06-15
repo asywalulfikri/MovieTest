@@ -1,5 +1,6 @@
 package asywalul.movie.test.screen.main
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -34,7 +35,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class MovieListActivity : BaseActivity(), MovieAdapter.OnClickListener {
+class MovieListActivity : BaseActivity(), MovieAdapter.OnClickListener ,GenreAdapter.OnClickListener{
 
     private val movieViewModel by viewModel<MovieViewModel>()
     private lateinit var movieAdapter : MovieAdapter
@@ -78,6 +79,7 @@ class MovieListActivity : BaseActivity(), MovieAdapter.OnClickListener {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateUser(){
         tvName.text = setDay()+" "+mSharedPref.getString("name","NULL")
         tvLogOut.setOnClickListener {
@@ -146,7 +148,7 @@ class MovieListActivity : BaseActivity(), MovieAdapter.OnClickListener {
 
     private fun observeGenre(result : List<Genres>?) {
         this.resultGenre = result!!
-        genreAdapter.setItems(result)
+        genreAdapter.setItems(result,this)
     }
 
     private fun observeMovies(result: List<UpComing>?) {
@@ -163,8 +165,8 @@ class MovieListActivity : BaseActivity(), MovieAdapter.OnClickListener {
         movieSliderAdapter = MovieSliderAdapter(this,result)
         viewPager.adapter = movieSliderAdapter
 
-        prepareDots(custom_Position++);
-        createSliderShow();
+        prepareDots(custom_Position++)
+        createSliderShow()
     }
 
 
@@ -221,7 +223,7 @@ class MovieListActivity : BaseActivity(), MovieAdapter.OnClickListener {
 
     override fun onClick(position: Int) {
         val upComing = resultUpComing[position]
-        val intent = Intent(this,MovieGenreActivity::class.java)
+        val intent = Intent(this,MovieDetailActivity::class.java)
         intent.putExtra("type",1)
         intent.putExtra("movie", upComing)
         startActivity(intent)
@@ -239,6 +241,13 @@ class MovieListActivity : BaseActivity(), MovieAdapter.OnClickListener {
             doubleBackToExitPressedOnce = false
         }, 2000)
 
+    }
+
+    override fun onClickGenre(position: Int) {
+        val genres = resultGenre[position]
+        val intent = Intent(this,MovieGenreActivity::class.java)
+        intent.putExtra("genreId",genres.id!!.toInt())
+        startActivity(intent)
     }
 
 

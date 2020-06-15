@@ -9,6 +9,7 @@ import asywalul.movie.test.intface.SchedulerProviders
 import asywalul.movie.test.intface.idlingresource.EspressoIdlingResource
 import asywalul.movie.test.model.repository.MovieRepositoryImpl
 import asywalul.movie.test.model.response.DiscoverResponse
+import asywalul.movie.test.model.response.VideoResponse
 import java.util.concurrent.TimeUnit
 
 class MovieViewModel(private val movieRepositoryImpl: MovieRepositoryImpl, private var scheduler: SchedulerProviders) : BaseViewModel(){
@@ -19,6 +20,7 @@ class MovieViewModel(private val movieRepositoryImpl: MovieRepositoryImpl, priva
     val movieReviewState   = MutableLiveData<ViewState<ReviewsResponse>>()
     val movieGenresState   = MutableLiveData<ViewState<List<Genres>>>()
     val movieDiscoverState   = MutableLiveData<ViewState<DiscoverResponse>>()
+    val movieVideoState   = MutableLiveData<ViewState<VideoResponse>>()
 
     @SuppressLint("CheckResult")
     fun getMoviesPopular() {
@@ -116,6 +118,26 @@ class MovieViewModel(private val movieRepositoryImpl: MovieRepositoryImpl, priva
                 EspressoIdlingResource.decrement()
             }, {
                 movieDiscoverState.postValue(ViewState.error(it))
+                EspressoIdlingResource.decrement()
+            }
+            ).also { compositeDisposable.add(it) }
+    }
+
+
+    fun getMoviesVideo(movieId: String) {
+        EspressoIdlingResource.increment()
+        movieRepositoryImpl.getMovieVideo(movieId)
+            .subscribeOn(scheduler.io())
+            .observeOn(scheduler.ui())
+            .delay(2, TimeUnit.SECONDS)
+            .doOnNext {
+                movieVideoState.postValue(ViewState.loading())
+            }
+            .subscribe({
+                movieVideoState.postValue(ViewState.success(it))
+                EspressoIdlingResource.decrement()
+            }, {
+                movieVideoState.postValue(ViewState.error(it))
                 EspressoIdlingResource.decrement()
             }
             ).also { compositeDisposable.add(it) }

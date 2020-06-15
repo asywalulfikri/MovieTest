@@ -10,11 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import asywalul.movie.test.R
 import asywalul.movie.test.common.ViewState
-import asywalul.movie.test.data.local.entity.Discover
-import asywalul.movie.test.data.local.entity.Popular
-import asywalul.movie.test.data.local.entity.Reviews
-import asywalul.movie.test.data.local.entity.UpComing
-import asywalul.movie.test.screen.detail.adapter.ReviewsAdapter
+import asywalul.movie.test.data.local.entity.*
+import asywalul.movie.test.screen.detail.adapter.VideoAdapter
 import asywalul.movie.test.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movie_review.*
 import kotlinx.android.synthetic.main.layout_empty.*
@@ -22,10 +19,10 @@ import kotlinx.android.synthetic.main.layout_loading.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MovieReviewsFragment : Fragment() {
+class MovieVideoFragment : Fragment() {
 
     private val movieViewModel by viewModel<MovieViewModel>()
-    private lateinit var reviewAdapter : ReviewsAdapter
+    private lateinit var videoAdapter : VideoAdapter
     var upComing :UpComing? =null
     var popular :Popular? =null
     var discover :Discover? = null
@@ -43,8 +40,8 @@ class MovieReviewsFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             isNestedScrollingEnabled = true
             setHasFixedSize(true)
-            reviewAdapter = ReviewsAdapter()
-            adapter = reviewAdapter
+            videoAdapter = VideoAdapter()
+            adapter = videoAdapter
         }
 
         val bundle = this.arguments
@@ -62,14 +59,13 @@ class MovieReviewsFragment : Fragment() {
             }
         }
 
-        movieViewModel.movieReviewState.observe(viewLifecycleOwner, Observer {
+        movieViewModel.movieVideoState.observe(viewLifecycleOwner, Observer {
             when (it.currentState) {
                 ViewState.State.LOADING -> {
                     progress_bar.visibility = View.VISIBLE
                 }
                 ViewState.State.SUCCESS -> {
                     progress_bar.visibility = View.GONE
-
                     if(it.data?.results?.isEmpty()!!){
                         layout_empty.visibility =View.VISIBLE
                     }else{
@@ -87,13 +83,13 @@ class MovieReviewsFragment : Fragment() {
 
         when (type) {
             1 -> {
-                movieViewModel.getMoviesReviews(upComing?.id.toString())
+                movieViewModel.getMoviesVideo(upComing?.id.toString())
             }
             2 -> {
-                movieViewModel.getMoviesReviews(popular?.id.toString())
+                movieViewModel.getMoviesVideo(popular?.id.toString())
             }
             else -> {
-                movieViewModel.getMoviesReviews(discover?.id.toString())
+                movieViewModel.getMoviesVideo(discover?.id.toString())
             }
         }
 
@@ -106,8 +102,8 @@ class MovieReviewsFragment : Fragment() {
     }
 
 
-    private fun observeMovies(result: List<Reviews>?) {
-        reviewAdapter.setItems(result!!)
+    private fun observeMovies(result: List<Videos>?) {
+        activity?.let { videoAdapter.setItems(result!!, it) }
     }
 
 

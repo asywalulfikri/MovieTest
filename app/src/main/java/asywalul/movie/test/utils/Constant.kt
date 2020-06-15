@@ -24,6 +24,7 @@ class Constant {
     interface KEY{
         companion object{
             const val key ="a443169a3a91f8c3a0959954f1203c5b"
+            const val youtubeKey = "AIzaSyAwxSpIUZamaTh9iRXlb5-WAodYwLyJJkQ"
         }
     }
 }

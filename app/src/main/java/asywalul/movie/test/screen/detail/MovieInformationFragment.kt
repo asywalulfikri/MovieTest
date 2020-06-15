@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import asywalul.movie.test.R
 import asywalul.movie.test.common.ViewState
 import asywalul.movie.test.data.local.entity.Detail
+import asywalul.movie.test.data.local.entity.Discover
 import asywalul.movie.test.data.local.entity.Popular
 import asywalul.movie.test.data.local.entity.UpComing
 import asywalul.movie.test.viewmodel.MovieViewModel
@@ -25,10 +26,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 class MovieInformationFragment : Fragment() {
 
-    var upComing :UpComing? =null
+    private var upComing :UpComing? =null
     var popular :Popular? =null
+    private var discover : Discover? =null
     private val movieViewModel by viewModel<MovieViewModel>()
-    var type : Int? =null
+    private var type : Int? =null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -41,10 +43,16 @@ class MovieInformationFragment : Fragment() {
         val bundle = this.arguments
         type = bundle!!.getSerializable("type") as Int
 
-        if(type==1){
-            upComing = bundle!!.getSerializable("movie") as UpComing?
-        }else{
-            popular= bundle!!.getSerializable("movie") as Popular?
+        when (type) {
+            1 -> {
+                upComing = bundle.getSerializable("movie") as UpComing?
+            }
+            2 -> {
+                popular= bundle.getSerializable("movie") as Popular?
+            }
+            else -> {
+                discover= bundle.getSerializable("movie") as Discover?
+            }
         }
 
         movieViewModel.movieDetailState.observe(viewLifecycleOwner, Observer {
@@ -63,10 +71,16 @@ class MovieInformationFragment : Fragment() {
             }
         })
 
-        if(type==1){
-            movieViewModel.getMoviesDetail(upComing?.id.toString())
-        }else{
-            movieViewModel.getMoviesDetail(popular?.id.toString())
+        when (type) {
+            1 -> {
+                movieViewModel.getMoviesDetail(upComing?.id.toString())
+            }
+            2 -> {
+                movieViewModel.getMoviesDetail(popular?.id.toString())
+            }
+            else -> {
+                movieViewModel.getMoviesDetail(discover?.id.toString())
+            }
         }
 
     }

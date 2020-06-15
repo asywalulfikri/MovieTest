@@ -6,6 +6,7 @@ import asywalul.movie.test.intface.RemoteDataSource
 import asywalul.movie.test.intface.SchedulerProviders
 import asywalul.movie.test.model.api.MovieApi
 import asywalul.movie.test.model.response.DiscoverResponse
+import asywalul.movie.test.model.response.VideoResponse
 import asywalul.movie.test.utils.Constant
 import io.reactivex.Observable
 
@@ -33,6 +34,10 @@ class RemoteDataSourceImpl(private val api: MovieApi,
     override fun getMovieDiscoverFromApi(page : Int , genreId : Int): Observable<DiscoverResponse> =
         api.getMovieDiscover(page,genreId,Constant.KEY.key)
 
+
+    override fun getMovieVideoFromApi(movieId : String): Observable<VideoResponse> =
+        api.getMovieVideo(movieId,Constant.KEY.key)
+
     override fun getMovieGenresFromApi(): Observable<List<Genres>> =
         api.getMovieGenres(Constant.KEY.key)
             .map { movieResponse ->
@@ -42,8 +47,8 @@ class RemoteDataSourceImpl(private val api: MovieApi,
             .subscribeOn(scheduler.io())
 
 
-    override fun getMovieReviewsFromApi(idMovie:String): Observable<ReviewsResponse> =
-        api.getMovieReviews(idMovie,Constant.KEY.key)
+    override fun getMovieReviewsFromApi(movieId:String): Observable<ReviewsResponse> =
+        api.getMovieReviews(movieId,Constant.KEY.key)
             .map { movieResponse ->
                 localImpl.saveMovieReviews(movieResponse).subscribe()
                 movieResponse
@@ -52,8 +57,8 @@ class RemoteDataSourceImpl(private val api: MovieApi,
             .subscribeOn(scheduler.io())
 
 
-    override fun getMovieDetailFromApi(idMovie: String): Observable<Detail> =
-        api.getMovieDetail(idMovie,Constant.KEY.key)
+    override fun getMovieDetailFromApi(movieId: String): Observable<Detail> =
+        api.getMovieDetail(movieId,Constant.KEY.key)
             .map { movieResponse ->
                 localImpl.saveMovieDetail(movieResponse).subscribe()
                 movieResponse
