@@ -1,5 +1,6 @@
 package asywalul.movie.test.screen.splashscreen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -13,8 +14,6 @@ import asywalul.movie.test.R
 import asywalul.movie.test.base.BaseFragment
 import asywalul.movie.test.screen.main.MovieListActivity
 import kotlinx.android.synthetic.main.fragment_intro.*
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -26,6 +25,7 @@ class FragmentIntroduction : BaseFragment() {
         return inflater.inflate(R.layout.fragment_intro, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -76,13 +76,5 @@ class FragmentIntroduction : BaseFragment() {
 
     private fun validation():Boolean{
         return etName.text.toString().trim().length >= 6
-    }
-
-    private fun capitalize(capString: String): Boolean {
-        val capMatcher: Matcher = Pattern.compile(".*[A-Z].*", Pattern.CASE_INSENSITIVE).matcher(capString)
-        while (capMatcher.find()) {
-            return true
-        }
-        return true
     }
 }
