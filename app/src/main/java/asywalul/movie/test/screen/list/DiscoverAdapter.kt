@@ -12,7 +12,6 @@ import asywalul.movie.test.data.local.entity.Discover
 import asywalul.movie.test.utils.Constant
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -54,6 +53,10 @@ class DiscoverAdapter : RecyclerView.Adapter<DiscoverAdapter.ViewHolder>() {
             resultList.add(list[i]!!)
         }
         notifyDataSetChanged()
+    }
+
+    fun getList() : ArrayList<Discover>{
+        return this.resultList
     }
 
 

@@ -4,13 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import asywalul.movie.test.R
 import asywalul.movie.test.base.BaseActivity
 import asywalul.movie.test.common.ViewState
-import asywalul.movie.test.data.local.entity.Discover
 import asywalul.movie.test.screen.detail.MovieDetailActivity
 import asywalul.movie.test.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.activity_list_genre.*
@@ -23,7 +23,6 @@ class MovieGenreActivity : BaseActivity(), DiscoverAdapter.OnClickListener {
     private val movieViewModel by viewModel<MovieViewModel>()
     private lateinit var discoverAdapter : DiscoverAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private var resultDiscover: List<Discover> = ArrayList()
     private var genreId : Int = 0
     private var isLoadMore : Boolean = false
     private var maxPage = 0
@@ -72,7 +71,7 @@ class MovieGenreActivity : BaseActivity(), DiscoverAdapter.OnClickListener {
                 ViewState.State.SUCCESS -> {
                     progress_bar.visibility = View.GONE
                     maxPage = it.data!!.totalPages!!
-                    this.resultDiscover = it.data.results
+
                     if(isLoadMore){
                         discoverAdapter.addItem(it.data.results)
                     }else{
@@ -93,7 +92,7 @@ class MovieGenreActivity : BaseActivity(), DiscoverAdapter.OnClickListener {
 
 
     override fun onClick(position: Int) {
-        val discover = resultDiscover[position]
+        val discover = discoverAdapter.getList()[position]
         val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra("type",3)
         intent.putExtra("movie", discover)
